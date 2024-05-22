@@ -6,7 +6,7 @@ import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
 import { deleteUserChats, getUserChats, sendChatRequest } from "../helpers/api-communicator";
 import toast from "react-hot-toast";
-import CustomizedInput from "../components/shared/CustomizedInput";
+import {CustomizedInput,CustomizedDropDown,CustomizedDropDown1} from "../components/shared/CustomizedInput";
 import { useNavigate } from "react-router-dom";
 import {IoIosLogIn} from "react-icons/io";
 import { FaMicrophone } from "react-icons/fa";
@@ -51,12 +51,12 @@ const Chat = () => {
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const Difficulty = formData.get("Difficulty") as string;
-        const Specilization = formData.get("Specilization") as string;
-        const YearsOfExperience = formData.get("Years of experience") as string;
-        const Topic = formData.get("Topic") as string;
-        if (!(Topic === "" || Difficulty === "" || Specilization === "" || YearsOfExperience === "")) {
-            const content = `Take the interview on ${Topic}, I have ${YearsOfExperience} years of experience in this topic, I specialize in ${Specilization} from this topic, start with the first question in ${Difficulty} difficulty.`;
+        const YearsOfExperience = formData.get("month's of professional experience") as string;
+        const Topic = formData.get("Subject") as string;
+        const haveHavenot = formData.get("haveHavenot") as string;
+        const typeofinterview = formData.get("typeofinterview") as string;
+        if (!(Topic === ""  || YearsOfExperience === ""|| haveHavenot==="")) {
+            const content = `I am a student studying computer science and engineering with a focus on ${Topic} subjects. I have ${YearsOfExperience} month's of professional experience, but I ${haveHavenot} worked on academic projects related to this field. I am here for an entry-level position or internship and would like to start with interview questions that cover only ${typeofinterview} aspects relevant to my field of study.`;
             const newMessage: Message = { role: "user", content };
             setChatMessages((prev) => [...prev, newMessage]);
             const chatData = await sendChatRequest(content);
@@ -151,10 +151,10 @@ const Chat = () => {
                         }}>
                         <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                             <Typography variant="h4" textAlign="center" padding={2} fontWeight={600}>Form</Typography>
-                            <CustomizedInput type="Topic" name="Topic" label="Topic" />
-                            <CustomizedInput type="Years of experience" name="Years of experience" label="Years of experience" />
-                            <CustomizedInput type="Specilization" name="Specilization" label="Specilization" />
-                            <CustomizedInput type="Difficulty" name="Difficulty" label="Difficulty" />
+                            <CustomizedInput type="Subject" name="Subject" label="Subject" />
+                            <CustomizedInput type="month's of professional experience" name="month's of professional experience" label="month's of professional experience" />
+                            <CustomizedDropDown type = "haveHavenot" name = "haveHavenot" label = "haveHavenot"/>
+                            <CustomizedDropDown1 type = "typeofinterview" name = "typeofinterview" label = "typeofinterview"/>
                             <Button type="submit" sx={{ px: 2, py: 1, mt: 2, width: "400px", borderRadius: 2, bgcolor: "#00fffc", ":hover": { bgcolor: "white", color: "black" } }} endIcon={<IoIosLogIn />}>Submit</Button>
                         </Box>
                     </form>
