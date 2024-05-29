@@ -76,7 +76,7 @@ export const generateChatCompletion = async (req: Request, res: Response, next: 
 
         const openai = new OpenAI({ apiKey: process.env.OPEN_AI_SECRET });
         const chatResponse = await openai.chat.completions.create({
-            model: "gpt-4o",
+            model: "gpt-3.5-turbo",
             messages: chats,
             max_tokens: 1500,
             temperature: 0.7,
